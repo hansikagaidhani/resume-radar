@@ -1,11 +1,10 @@
 ---
 title: ResumeRadar
 emoji: 🎯
-colorFrom: teal
-colorTo: green
-sdk: streamlit
-sdk_version: 1.28.0
-app_file: app.py
+colorFrom: blue
+colorTo: purple
+sdk: docker
+app_port: 7860
 pinned: false
 license: mit
 ---
