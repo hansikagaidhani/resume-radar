@@ -9,32 +9,60 @@ pinned: false
 license: mit
 ---
 
-# 🎯 ResumeRadar
+# 🎯 ResumeRadar — AI-Powered Resume & Job Description Matcher
 
 **Scan your resume. Spot the gaps. Land the job.**
 
-Upload or paste a job description + your resume → get a **semantic match score**, **prioritised missing keywords**, and **section-specific edit suggestions**.
+> 🔗 **[Live Demo → huggingface.co/spaces/HansikaG/resume-radar](https://huggingface.co/spaces/HansikaG/resume-radar)**
 
-## How it works
+---
 
-1. Both texts are encoded into dense vector embeddings using **`all-MiniLM-L6-v2`** (sentence-transformers).
-2. **Cosine similarity** between the two embedding vectors produces the match score (0–100%).
-3. **TF-IDF** (scikit-learn, unigrams + bigrams) extracts the most important keywords from the job description; any not found in the resume are flagged as missing.
-4. Actionable edit suggestions are generated from the score tier and the missing-keyword list.
+## What it does
 
-## Stack
+Recruiters and ATS systems filter resumes based on keyword and semantic alignment with the job description. ResumeRadar helps job seekers close that gap before they apply.
 
-| Layer | Library |
+Paste or upload a **job description** and your **resume** (PDF, DOCX, or plain text) — the app instantly returns:
+
+- **Semantic match score** — how closely your resume aligns with the role, using sentence embeddings (not just keyword counting)
+- **Prioritised missing keywords** — the most important JD terms absent from your resume, ranked High / Medium / Low
+- **Section-specific edit suggestions** — actionable tips mapped to Summary, Skills, and Experience sections
+
+---
+
+## Key Features
+
+- Upload PDF or DOCX resumes directly — no copy-pasting needed
+- Semantic understanding via sentence embeddings, not just string matching
+- TF-IDF keyword extraction identifies what the job description actually emphasises
+- Clean, recruiter-style output with colour-coded keyword chips and suggestion cards
+- Deployed and accessible publicly — no setup required for end users
+
+---
+
+## Tech Stack
+
+| What | How |
 |---|---|
-| Embeddings | `sentence-transformers` · `all-MiniLM-L6-v2` |
-| Similarity | `sklearn.metrics.pairwise.cosine_similarity` |
-| Keyword extraction | `sklearn.feature_extraction.text.TfidfVectorizer` |
+| Semantic embeddings | `sentence-transformers` · `all-MiniLM-L6-v2` |
+| Match scoring | Cosine similarity (`scikit-learn`) |
+| Keyword extraction | TF-IDF with unigrams + bigrams (`scikit-learn`) |
+| File parsing | `pdfplumber` (PDF) · `python-docx` (DOCX) |
 | UI | `Streamlit` |
-| Deployment | HuggingFace Spaces |
+| Deployment | Docker · HuggingFace Spaces |
 
-## Local setup
+---
+
+## Why I built this
+
+Tailoring a resume for every job application is time-consuming and it's hard to know what to change. This project applies NLP techniques — sentence embeddings and cosine similarity — to make that feedback instant and objective. It's a practical demonstration of semantic search applied to a real, everyday problem.
+
+---
+
+## Run locally
 
 ```bash
+git clone https://github.com/hansikagaidhani/resume-radar.git
+cd resume-radar
 pip install -r requirements.txt
 streamlit run app.py
 ```
